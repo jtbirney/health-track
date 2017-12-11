@@ -1,0 +1,11 @@
+.nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.login-container {
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid black;
+}

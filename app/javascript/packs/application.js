@@ -7,10 +7,25 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../react/src/App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import App from '../react/src/App'
+import reducer from '../react/src/reducers'
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App />, document.getElementById('app'));
+
+  const store = createStore(reducer)
+  const appDiv = document.getElementById('app')
+  const render = () => ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    appDiv
+  )
+
+  render()
+  store.subscribe(render)
 })

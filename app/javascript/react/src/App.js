@@ -1,8 +1,13 @@
-import React from 'react';
+import React from 'react'
+import NavBarContainer from './containers/NavBarContainer'
+import SetCounter from './containers/SetCounter'
 
-const App = props => {
+const App = () => {
   return(
-    <h1>Hello World</h1>
+    <div className='body'>
+      <NavBarContainer />
+      <SetCounter />
+    </div>
   )
 }
 
