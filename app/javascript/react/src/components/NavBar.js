@@ -73,13 +73,11 @@ class NavBar extends Component {
       }
     }
     this.props.logIn(formPayload)
-    this.props.closeLogin()
   }
 
   logOut(event) {
     event.preventDefault()
-    this.props.logOut()
-    this.props.closeLogin()
+    this.props.logOut(this.props.userId)
   }
 
   createUser(event) {
@@ -97,15 +95,18 @@ class NavBar extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchUser()
+  }
+
   render() {
     let errorDiv
     let errorItems
     let currentErrors = this.props.errors
     // look at recipe box to see how I handled the errors there.
     if (this.props.errors) {
-      errorItems = Object.keys(this.props.errors).map(error => {
-        debugger
-        return(<p key={error}>{error} {currentErrors[error]}</p>)
+      errorItems = Object.entries(this.props.errors).map(error => {
+        return(<p key={error[0]}>{error[1]}</p>)
       })
       errorDiv = <div className="callout alert">{errorItems}</div>
     }

@@ -12,16 +12,15 @@ let receiveLogout = () => {
   }
 }
 
-export const fetchDestroySession = () => dispatch => {
+export const fetchDestroySession = userId => dispatch => {
   dispatch(destroySession())
-  fetch(`/api/v1/sessions`, {
+  fetch(`/api/v1/sessions/${userId}`, {
     credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      method: 'DELETE',
-      body: payload
+      method: 'DELETE'
   }).then(response => response.json())
     .then(json => {
       dispatch(receiveLogout(json))

@@ -1,3 +1,5 @@
+import { closeLogin } from '../actions'
+
 export const CREATE_SESSION = 'CREATE_SESSION'
 let createSession = () => {
   return {
@@ -24,23 +26,38 @@ let receiveSessionError = json => {
   }
 }
 
+export const fetchSession = () => dispatch => {
+  dispatch(createSession())
+  fetch(`/api/v1/sessions`, {
+    credentials: 'same-origin',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveSession(json))
+    })
+}
+
 export const fetchPostSession = user => dispatch => {
   let payload = JSON.stringify(user)
   dispatch(createSession())
   fetch(`/api/v1/sessions`, {
     credentials: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: payload
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: payload
   }).then(response => response.json())
     .then(json => {
       if (json.error) {
         throw json.error
       } else {
         dispatch(receiveSession(json))
+        dispatch(closeLogin())
       }
     })
     .catch(error => {

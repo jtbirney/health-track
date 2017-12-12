@@ -1,3 +1,5 @@
+import { closeLogin } from '../actions'
+
 export const CREATE_USER = 'CREATE_USER'
 let createUser = () => {
   return {
@@ -41,6 +43,7 @@ export const fetchPostUser = user => dispatch => {
         throw json.error
       } else {
         dispatch(receiveNewUser(json))
+        dispatch(closeLogin())
       }
     })
     .catch(error => {

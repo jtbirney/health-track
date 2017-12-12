@@ -7,7 +7,12 @@ class Api::V1::UsersController < Api::ApiController
       log_in user
       render json: user, status: :created
     else
-      render json: { error: user.errors }
+      errors = {}
+      user.errors.each do |key, value|
+        capital_key = key.to_s.capitalize.gsub('_', ' ')
+        errors[key] = "#{capital_key} #{value}"
+      end
+      render json: { error: errors }
     end
   end
 

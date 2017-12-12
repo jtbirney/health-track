@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetching: false,
         user: action.user,
+        userId: action.userId,
         error: null,
         loggedInAt: action.receivedAt
       })
@@ -36,6 +37,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetching: false,
         user: action.user,
+        userId: action.userId,
         error: null,
         loggedInAt: action.receivedAt
       })
@@ -49,12 +51,14 @@ export default (state = initialState, action) => {
     case DESTROY_SESSION:
       return Object.assign({}, state, {
         isFetching: true,
-        user: null
+        user: null,
+        userId: null
       })
     case RECIEVE_LOGOUT:
       return Object.assign({}, state, {
         isFetching: false,
-        user: null
+        user: null,
+        userId: null
       })
     default:
       return state
