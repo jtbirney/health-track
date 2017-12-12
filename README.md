@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RideBot is an app to search and store recipes. Built with the following:
 
-Things you may want to cover:
+Ruby v. 2.3.3
+Rails v. 5.1.2
+React v 16.0.0 (using webpacker)
+React Router v. 3.0.2
+PostgreSQL
 
-* Ruby version
+## Getting Started
+Run the following commands in terminal. (This app uses webpacker, which requires yarn. If you do not have yarn installed, run `$ brew install yarn`)
+```
+$ git clone git@github.com/jtbirney/ride-bot.git
+$ bundle install
+$ rake db:create
+$ rake db:migrate
+$ rails server
+```
+And in a separate tab
+```
+$ yarn install
+$ yarn start
+```
 
-* System dependencies
+## Key Features
 
-* Configuration
+## Test suite
+Ruby testing using RSpec. Run with `$ rake`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+React testing using Karma/Jasmine/Enzyme. Run with `$ karma start`
