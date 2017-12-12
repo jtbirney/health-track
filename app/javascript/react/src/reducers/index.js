@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import counter from './counter'
-import toggleLogin from './toggleLogin'
+import toggleNavForm from './toggleNavForm'
+import user from './user'
 
 const counterApp = combineReducers({
   counter,
-  toggleLogin
+  toggleNavForm,
+  user
 })
 
 export default counterApp

@@ -1,18 +1,27 @@
 import { connect } from 'react-redux'
-import { toggleLogin } from '../actions'
-import { createUser } from '../actions/User'
+import { toggleLogin, toggleSignUpForm, closeLogin } from '../actions'
+import { fetchPostUser } from '../actions/createUser'
+import { fetchPostSession } from '../actions/session'
+import { fetchDestroySession } from '../actions/destroySession'
 import NavBar from '../components/NavBar'
 
 
 const mapStateToProps = state => {
   return {
-    logInForm: state.toggleLogin
+    navForm: state.toggleNavForm,
+    user: state.user.user,
+    errors: state.user.error,
+    loggedIn: state.loggedInAt
   }
 }
 
 const mapDispatchToProps = {
   toggleLogin: toggleLogin,
-  createUser: createUser
+  toggleSignUpForm: toggleSignUpForm,
+  closeLogin: closeLogin,
+  createUser: fetchPostUser,
+  logIn: fetchPostSession,
+  logOut: fetchDestroySession
 }
 
 const NavBarContainer = connect(

@@ -1,13 +1,13 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < Api::ApiController
   protect_from_forgery unless: -> { request.format.json? }
 
   def create
     user = User.new(user_params)
     if user.save
-      # log_in user
-      render json: user
+      log_in user
+      render json: user, status: :created
     else
-      render json: user.errors
+      render json: { error: user.errors }
     end
   end
 

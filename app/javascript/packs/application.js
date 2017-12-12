@@ -9,7 +9,9 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 import App from '../react/src/App'
 import reducer from '../react/src/reducers'
@@ -17,7 +19,12 @@ import reducer from '../react/src/reducers'
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const store = createStore(reducer)
+  const store = createStore(
+    reducer,
+    applyMiddleware(
+      thunkMiddleware
+    )
+  )
   const appDiv = document.getElementById('app')
   const render = () => ReactDOM.render(
     <Provider store={store}>
