@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
       thunkMiddleware
     )
   )
-  const appDiv = document.getElementById('app')
+  
   const render = () => ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
-    appDiv
+    document.getElementById('app')
   )
 
   render()

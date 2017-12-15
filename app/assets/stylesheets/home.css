@@ -1,11 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Coda|Iceland');
+
+body {
+  color: #403B33;
+  background-color: #EDEBE6;
+  margin: 0;
+  font-family: 'Coda', cursive;
+}
+
+.button-large {
+  height: 5em;
+  font-family: 'Iceland', cursive;
+  color: #403B33;
+  background-color: #94C7B6;
+}
+
+.button {
+  height: 1.4em;
+  color: #403B33;
+  background-color: #94C7B6;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3em;
+}
+
+input {
+  color: #403B33;
+  height: 1.25em;
+  font-size: 1em;
+}
+
 .nav-bar-container {
   display: flex;
+  font-family: 'Iceland', cursive;
   justify-content: space-between;
-  border: 1px solid black;
+  padding: 10px;
+  border-bottom: 10px solid #D3643B;
+  background-color: #D6E1C7;
+}
+
+.nav-bar-user {
+  display: flex;
 }
 
 .login-container {
   display: flex;
   justify-content: flex-end;
-  border: 1px solid black;
+}
+
+.body {
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 1000px;
+}
+
+.weight-list {
+  padding: 0;
+}
+
+.weight-list li {
+  width: 200px;
+  text-align: center;
+  list-style-type: none;
+}
+
+@media (min-width: 500px) {
+  .weight-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .weight-graph {
+    margin: auto;
+  }
 }

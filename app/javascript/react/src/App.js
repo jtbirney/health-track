@@ -1,14 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import NavBarContainer from './containers/NavBarContainer'
-import SetCounter from './containers/SetCounter'
+import WeightContainer from './containers/WeightContainer'
 
-const App = () => {
+const mapStateToProps = state => {
+  return {
+    user: state.user.userId
+  }
+}
+
+const AppComponent = props => {
   return(
-    <div className='body'>
+    <div>
       <NavBarContainer />
-      <SetCounter />
+      {props.user && <WeightContainer />}
     </div>
   )
 }
+
+const App = connect(
+  mapStateToProps
+)(AppComponent)
 
 export default App
