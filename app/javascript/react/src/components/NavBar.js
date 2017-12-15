@@ -20,32 +20,32 @@ class NavBar extends Component {
   }
 
   validateFields(name, value) {
-  if (name !== "passwordConfirmation") {
-    if (value === '' || value === ' ') {
-      let label = name.charAt(0).toUpperCase() + name.slice(1)
-      let newError = { [name]: `${label} cannot be blank`}
-      this.setState({ errors: Object.assign(this.state.errors, newError) })
-      return false
+    if (name !== "passwordConfirmation") {
+      if (value === '' || value === ' ') {
+        let label = name.charAt(0).toUpperCase() + name.slice(1)
+        let newError = { [name]: `${label} cannot be blank`}
+        this.setState({ errors: Object.assign(this.state.errors, newError) })
+        return false
+      } else {
+        let errorState = this.state.errors
+        delete errorState[name]
+        this.setState({ errors: errorState })
+        return true
+      }
     } else {
-      let errorState = this.state.errors
-      delete errorState[name]
-      this.setState({ errors: errorState })
-      return true
-    }
-  } else {
-    if (value !== this.state.password) {
-      let newError = { [name]: `Passwords do not match`}
-      this.setState({ errors: Object.assign(this.state.errors, newError) })
-      return false
-    } else {
-      let errorState = this.state.errors
-      delete errorState[name]
-      delete errorState.password_confirmation
-      this.setState({ errors: errorState })
-      return true
+      if (value !== this.state.password) {
+        let newError = { [name]: `Passwords do not match`}
+        this.setState({ errors: Object.assign(this.state.errors, newError) })
+        return false
+      } else {
+        let errorState = this.state.errors
+        delete errorState[name]
+        delete errorState.password_confirmation
+        this.setState({ errors: errorState })
+        return true
+      }
     }
   }
-}
 
   handleChange(event) {
     let value = event.target.value
@@ -103,7 +103,6 @@ class NavBar extends Component {
     let errorDiv
     let errorItems
     let currentErrors = this.props.errors
-    // look at recipe box to see how I handled the errors there.
     if (this.props.errors) {
       errorItems = Object.entries(this.props.errors).map(error => {
         return(<p key={error[0]}>{error[1]}</p>)
@@ -120,22 +119,24 @@ class NavBar extends Component {
     return(
       <div>
         <div className='nav-bar-container'>
-          <h1>Health Tracker</h1>
-          <h1>{this.props.user}</h1>
+          <h1 className='nav-bar-title'>Health Tracker</h1>
           {!this.props.user &&
             <div>
-              <button onClick={this.toggleLogin}>
+              <button onClick={this.toggleLogin} className='button-large'>
                 <h1>Log In</h1>
               </button>
-              <button onClick={this.toggleSignUpForm}>
+              <button onClick={this.toggleSignUpForm} className='button-large'>
                 <h1>Sign Up</h1>
               </button>
             </div>
           }
           {this.props.user &&
-            <button onClick={this.logOut}>
-              <h1>Log Out</h1>
-            </button>
+            <div className='nav-bar-user'>
+              <h1>{this.props.user}</h1>
+              <button onClick={this.logOut} className='button-large'>
+                <h1>Log Out</h1>
+              </button>
+            </div>
           }
         </div>
         <div>
@@ -144,8 +145,8 @@ class NavBar extends Component {
             <div className='login-container'>
               <form onSubmit={this.logIn}>
                 <input type='text' name='name' placeholder='Username' onChange={this.handleChange}></input>
-                <input type='text' name='password' placeholder='Password' onChange={this.handleChange}></input>
-                <input type='submit' value='Submit' />
+                <input type='password' name='password' placeholder='Password' onChange={this.handleChange}></input>
+                <input type='submit' value='Submit' className='button'/>
               </form>
             </div>
           }
@@ -156,7 +157,7 @@ class NavBar extends Component {
                 <input type='text' name='email' placeholder='Email'  onChange={this.handleChange} />
                 <input type='text' name='password' placeholder='Password'  onChange={this.handleChange} />
                 <input type='text' name='passwordConfirmation' placeholder='Confirm Password' onChange={this.handleChange} />
-                <input type='submit' value='Submit' />
+                <input type='submit' value='Submit' className='button'/>
               </form>
             </div>
           }
