@@ -9,27 +9,54 @@ class WeightForm extends Component {
       weight: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.validateFields = this.validateFields.bind(this)
+    this.validateDate = this.validateDate.bind(this)
+    this.validateWeight = this.validateWeight.bind(this)
     this.addWeight = this.addWeight.bind(this)
   }
 
   handleChange(event) {
     let value = event.target.value
     let name = event.target.name
-    this.validateFields(name, value)
-    this.setState({ [name]: value })
+    if (name === 'weight') {
+      if (this.validateWeight(value)) {
+        this.setState({ [name]: value })
+      }
+    } else {
+      this.setState({ [name]: value })
+    }
   }
 
-// the validations on this need improvement to validate weight is a number and date is a valid date
-  validateFields(name, value) {
-    if (value === '' || value === ' ') {
-      let label = name.charAt(0).toUpperCase() + name.slice(1)
-      let newError = { [name]: `${label} cannot be blank`}
+  validateDate(value) {
+    let dateValue = Date.parse(value)
+    if (!dateValue) {
+      let newError = { date: 'Please enter a valid date'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     } else {
       let errorState = this.state.errors
-      delete errorState[name]
+      delete errorState.date
+      this.setState({ errors: errorState })
+      return true
+    }
+  }
+
+  validateWeight(value) {
+    console.log(value);
+    if (value === '') {
+      let newError = { weight: 'Weight cannot be blank'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return true
+    } else if (parseFloat(value).toString() !== value) {
+      let newError = { weight: 'Weight must be a number'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else if (parseFloat(value) > 1000) {
+      let newError = { weight: 'Weight cannot be greater than 1000lbs.'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else {
+      let errorState = this.state.errors
+      delete errorState.weight
       this.setState({ errors: errorState })
       return true
     }
@@ -37,21 +64,12 @@ class WeightForm extends Component {
 
   addWeight(event) {
     event.preventDefault()
-    if (this.state.weight !== '' && this.state.date !== '') {
+    if (this.validateDate(this.state.date) && this.validateWeight(this.state.weight)) {
       let payload = {
         weight: this.state.weight,
         date: this.state.date
       }
       this.props.fetchPostWeight(payload)
-    } else {
-      let newError = {}
-      if (this.state.weight === '' || ' ') {
-        Object.assign(newError, { weight: `Weight cannot be blank`})
-      }
-      if (this.state.date === '' || ' ') {
-        Object.assign(newError, { date: `Date cannot be blank`})
-      }
-      this.setState({ errors: Object.assign(this.state.errors, newError) })
     }
   }
 
